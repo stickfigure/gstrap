@@ -1,0 +1,8 @@
+.svn
+/target/
+/test-output/
+.idea
+*.iml
+.classpath
+.project
+.DS_store
