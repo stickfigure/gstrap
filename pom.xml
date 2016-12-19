@@ -24,7 +24,7 @@
 	<url>https://github.com/stickfigure/gstrap</url>
 	<scm>
 		<url>scm:git:https://github.com/stickfigure/gstrap</url>
-		<developerConnection>scm:git:https://github.com/stickfigure/gstrap</developerConnection>
+		<developerConnection>scm:git:git@github.com:stickfigure/gstrap</developerConnection>
 	  <tag>HEAD</tag>
   </scm>
 	<licenses>
