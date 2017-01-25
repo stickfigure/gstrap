@@ -14,7 +14,7 @@ import javax.inject.Inject;
 @Slf4j
 abstract public class GuicyDeferredTask implements DeferredTask
 {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -9079779277109762232L;
 
 	@Inject protected static Injector injector;
 	
