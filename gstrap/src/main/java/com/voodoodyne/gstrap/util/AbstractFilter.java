@@ -45,6 +45,6 @@ abstract public class AbstractFilter implements Filter
 
 	/**
 	 */
-	abstract public void doFilter(final HttpServletRequest request, final HttpServletResponse response, final FilterChain chain)
+	abstract protected void doFilter(final HttpServletRequest request, final HttpServletResponse response, final FilterChain chain)
 		throws IOException, ServletException;
 }
