@@ -127,6 +127,20 @@
 			<version>2.5</version>
 		</dependency>
 
+		<!-- Google signin stuff -->
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>1.22.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava-jdk5</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
 		<!-- Optional stuff -->
 		<dependency>
 			<groupId>com.mitchellbosecke</groupId>
