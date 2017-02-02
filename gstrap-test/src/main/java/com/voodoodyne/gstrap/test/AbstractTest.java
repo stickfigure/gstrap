@@ -1,15 +1,22 @@
 package com.voodoodyne.gstrap.test;
 
+import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import com.google.inject.servlet.RequestScoped;
+import com.google.inject.util.Modules;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.util.Closeable;
+import com.voodoodyne.gstrap.test.servlet.FakeHttpServletRequest;
+import com.voodoodyne.gstrap.test.servlet.FakeHttpServletResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
 import org.mockito.MockitoAnnotations;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.Callable;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
@@ -19,7 +26,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 abstract public class AbstractTest {
 
 	/** */
-	private static final SimpleScope FAKE_REQUEST_SCOPE = new SimpleScope();
+	private final SimpleScope requestScope = new SimpleScope();
 
 	/** */
 	protected final GAEHelper gae = new GAEHelper();
@@ -39,7 +46,15 @@ abstract public class AbstractTest {
 		gae.setUp(testInfo);
 		objectify = ObjectifyService.begin();
 
-		injector = Guice.createInjector(modules());
+		final AbstractModule basicTestModule = new AbstractModule() {
+			@Override
+			protected void configure() {
+				this.bindScope(RequestScoped.class, requestScope);
+				this.bind(HttpServletRequest.class).to(FakeHttpServletRequest.class);
+				this.bind(HttpServletResponse.class).to(FakeHttpServletResponse.class);
+			}
+		};
+		injector = Guice.createInjector(Modules.override(basicTestModule).with(modules()));
 
 		injector.injectMembers(this);
 		injector.injectMembers(gae);
@@ -62,7 +77,7 @@ abstract public class AbstractTest {
 
 	/** Execute within the context of a request */
 	public <T> T req(final Callable<T> callable) throws Exception {
-		FAKE_REQUEST_SCOPE.enter();
+		requestScope.enter();
 
 		try {
 			ofy().flush();
@@ -71,7 +86,7 @@ abstract public class AbstractTest {
 		} finally {
 			ofy().flush();
 			ofy().clear();
-			FAKE_REQUEST_SCOPE.exit();
+			requestScope.exit();
 		}
 	}
 
