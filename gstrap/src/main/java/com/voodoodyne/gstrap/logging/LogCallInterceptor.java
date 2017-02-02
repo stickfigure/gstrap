@@ -1,4 +1,4 @@
-package com.voodoodyne.gstrap.util.logging;
+package com.voodoodyne.gstrap.logging;
 
 
 import lombok.extern.slf4j.Slf4j;

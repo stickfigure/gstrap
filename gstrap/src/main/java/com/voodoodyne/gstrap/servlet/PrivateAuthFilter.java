@@ -1,7 +1,7 @@
 /*
  */
 
-package servlet;
+package com.voodoodyne.gstrap.servlet;
 
 import javax.inject.Singleton;
 import javax.servlet.FilterChain;

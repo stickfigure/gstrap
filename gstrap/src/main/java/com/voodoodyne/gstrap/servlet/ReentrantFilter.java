@@ -1,4 +1,4 @@
-package servlet;
+package com.voodoodyne.gstrap.servlet;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

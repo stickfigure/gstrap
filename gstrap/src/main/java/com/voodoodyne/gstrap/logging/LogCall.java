@@ -1,4 +1,4 @@
-package com.voodoodyne.gstrap.util.logging;
+package com.voodoodyne.gstrap.logging;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

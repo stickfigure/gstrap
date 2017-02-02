@@ -1,7 +1,7 @@
 /*
  */
 
-package com.voodoodyne.gstrap.util;
+package com.voodoodyne.gstrap.lang;
 
 import org.apache.commons.lang3.StringUtils;
 

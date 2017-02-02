@@ -1,4 +1,4 @@
-package com.voodoodyne.gstrap.util.json;
+package com.voodoodyne.gstrap.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

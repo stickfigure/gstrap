@@ -8,7 +8,7 @@ import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.appengine.api.taskqueue.TaskOptions.Builder;
 import com.google.appengine.api.taskqueue.TransientFailureException;
 import com.google.common.collect.Iterables;
-import com.voodoodyne.gstrap.util.StringUtils2;
+import com.voodoodyne.gstrap.lang.StringUtils2;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 

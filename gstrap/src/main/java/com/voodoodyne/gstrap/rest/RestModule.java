@@ -3,8 +3,8 @@ package com.voodoodyne.gstrap.rest;
 import com.google.inject.matcher.Matcher;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.servlet.ServletModule;
-import com.voodoodyne.gstrap.util.logging.LogCall;
-import com.voodoodyne.gstrap.util.logging.LogCallInterceptor;
+import com.voodoodyne.gstrap.logging.LogCall;
+import com.voodoodyne.gstrap.logging.LogCallInterceptor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

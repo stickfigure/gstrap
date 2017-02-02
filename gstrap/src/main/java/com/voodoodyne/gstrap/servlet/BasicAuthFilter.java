@@ -2,7 +2,7 @@
  * $Id$
  */
 
-package servlet;
+package com.voodoodyne.gstrap.servlet;
 
 import com.google.common.io.BaseEncoding;
 import lombok.extern.slf4j.Slf4j;
@@ -19,10 +19,10 @@ import java.nio.charset.StandardCharsets;
 /**
  * <p>A filter which requires very simple basic auth.  Just derive a subclass
  * that implements the getRealm() and authenticate() methods.</p>
- * 
+ *
  * <p>Does not interact with the J2EE security constraints
  * in any way, so it can be used to enable basic auth in Google App Engine.</p>
- * 
+ *
  * <p>Requires commons-codec.</p>
  *
  * @author Jeff Schnitzer
@@ -87,7 +87,7 @@ abstract public class BasicAuthFilter extends AbstractFilter {
 			final String authorization = request.getHeader("Authorization");
 			if (authorization != null && authorization.startsWith("Basic ")) {
 				String base64AuthInfo = authorization.substring("Basic ".length());
-				
+
 				// There is no charset standard for basic auth, utf-8 is as good as any
 				String authInfo = new String(BaseEncoding.base64().decode(base64AuthInfo), StandardCharsets.UTF_8);
 				String[] authParts = authInfo.split(":");

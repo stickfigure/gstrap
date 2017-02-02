@@ -3,7 +3,7 @@
  * $URL: https://subetha.googlecode.com/svn/branches/resin/src/org/subethamail/web/util/AbstractFilter.java $
  */
 
-package servlet;
+package com.voodoodyne.gstrap.servlet;
 
 import lombok.Getter;
 
