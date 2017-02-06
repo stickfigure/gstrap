@@ -8,7 +8,7 @@ import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.appengine.api.taskqueue.TaskOptions.Builder;
 import com.google.appengine.api.taskqueue.TransientFailureException;
 import com.google.common.collect.Iterables;
-import com.voodoodyne.gstrap.lang.StringUtils2;
+import com.voodoodyne.gstrap.lang.Strings2;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -58,7 +58,7 @@ abstract public class QueueHelper {
 	/** */
 	private String nameOf(final DeferredTask task) {
 		final String cleaned = task.toString().replaceAll(DISALLOWED_CHARS_IN_TASK_NAME_REGEX, "-");
-		return StringUtils2.chopTo(cleaned, 462) + "--" + UUID.randomUUID();
+		return Strings2.chopTo(cleaned, 462) + "--" + UUID.randomUUID();
 	}
 
 	/** */

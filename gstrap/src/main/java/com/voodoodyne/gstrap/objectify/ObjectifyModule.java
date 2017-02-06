@@ -1,4 +1,4 @@
-package com.voodoodyne.gstrap.gae;
+package com.voodoodyne.gstrap.objectify;
 
 import com.google.inject.servlet.ServletModule;
 import com.googlecode.objectify.ObjectifyFilter;

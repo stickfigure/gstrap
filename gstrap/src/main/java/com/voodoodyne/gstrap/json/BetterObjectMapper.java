@@ -5,19 +5,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.googlecode.objectify.util.jackson.ObjectifyJacksonModule;
 
 import java.io.IOException;
 
 /**
- * Jackson mapper which has been configured properly. Overrides some of Jackson's obnoxious defaults.
+ * Jackson mapper which has been configured properly. Overrides some of Jackson's obnoxious defaults
+ * and adds some good stuff like Joda and Guava.
  */
-public class ConfiguredObjectMapper extends ObjectMapper {
-	public static ConfiguredObjectMapper INSTANCE = new ConfiguredObjectMapper();
-
-	public ConfiguredObjectMapper() {
+public class BetterObjectMapper extends ObjectMapper {
+	public BetterObjectMapper() {
 		this.registerModule(new JodaModule());
-		this.registerModule(new ObjectifyJacksonModule());
 		this.registerModule(new GuavaModule());
 
 		this.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);

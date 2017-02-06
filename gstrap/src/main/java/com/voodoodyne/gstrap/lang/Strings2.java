@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  */
-public class StringUtils2 {
+public class Strings2 {
 	/**
 	 * String must have some non-whitespace chars
 	 */
@@ -59,4 +59,5 @@ public class StringUtils2 {
 
 		return fragments;
 	}
+
 }
