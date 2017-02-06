@@ -7,6 +7,7 @@ import com.google.inject.Injector;
 import org.jboss.resteasy.plugins.guice.ModuleProcessor;
 import org.jboss.resteasy.plugins.server.servlet.FilterDispatcher;
 import org.jboss.resteasy.spi.Registry;
+import org.jboss.resteasy.spi.ResteasyDeployment;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
 import javax.inject.Inject;
@@ -36,8 +37,9 @@ public class GuiceResteasyFilterDispatcher extends FilterDispatcher
 		super.init(cfg);
 
 		final ServletContext context = cfg.getServletContext();
-		final Registry registry = (Registry)context.getAttribute(Registry.class.getName());
-		final ResteasyProviderFactory providerFactory = (ResteasyProviderFactory)context.getAttribute(ResteasyProviderFactory.class.getName());
+		final ResteasyDeployment deployment = (ResteasyDeployment) context.getAttribute(ResteasyDeployment.class.getName());
+		final Registry registry = deployment.getRegistry();
+		final ResteasyProviderFactory providerFactory = deployment.getProviderFactory();
 		final ModuleProcessor processor = new ModuleProcessor(registry, providerFactory);
 
 		processor.processInjector(injector);
