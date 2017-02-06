@@ -15,7 +15,7 @@
 	</modules>
 
 	<properties>
-		<gae.version>1.9.48</gae.version>
+		<gae.version>1.9.49</gae.version>
 		<junit.jupiter.version>5.0.0-M3</junit.jupiter.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
