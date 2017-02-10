@@ -36,8 +36,10 @@ abstract public class AbstractTest {
 
 	private Closeable objectify;
 
-	/** */
-	abstract protected Iterable<Module> modules();
+	/**
+	 * You almost certainly want to use Modules.combine() and Modules.override() to multiplex several into one.
+	 */
+	abstract protected Module module();
 
 	/** */
 	@BeforeEach
@@ -54,7 +56,7 @@ abstract public class AbstractTest {
 				this.bind(HttpServletResponse.class).to(FakeHttpServletResponse.class);
 			}
 		};
-		injector = Guice.createInjector(Modules.override(basicTestModule).with(modules()));
+		injector = Guice.createInjector(Modules.override(basicTestModule).with(module()));
 
 		injector.injectMembers(this);
 		injector.injectMembers(gae);
