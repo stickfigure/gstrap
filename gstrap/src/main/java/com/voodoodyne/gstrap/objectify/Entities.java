@@ -11,9 +11,14 @@ public class Entities {
 	
 	/**
 	 * If the two values are not equal, defer a save on the entity. Null-safe.
+	 *
+	 * Requires that we are in an active transaction
+	 *
 	 * @return true if the two values differ
 	 */
 	public static <T> boolean saveIfDifferent(final Object entity, final T firstValue, final T secondValue) {
+		Transactions.require();
+
 		final boolean different = !Objects.equals(firstValue, secondValue);
 		if (different)
 			ofy().defer().save().entity(entity);

@@ -15,26 +15,24 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
 import org.mockito.MockitoAnnotations;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.Callable;
-
-import static com.googlecode.objectify.ObjectifyService.ofy;
 
 /**
  */
 abstract public class AbstractTest {
 
 	/** */
-	private final SimpleScope requestScope = new SimpleScope();
-
-	/** */
 	protected final GAEHelper gae = new GAEHelper();
 
 	/** */
-	protected Injector injector;
-
 	private Closeable objectify;
+
+	/** */
+	@Inject
+	private TestContext ctx;
 
 	/**
 	 * You almost certainly want to use Modules.combine() and Modules.override() to multiplex several into one.
@@ -48,18 +46,21 @@ abstract public class AbstractTest {
 		gae.setUp(testInfo);
 		objectify = ObjectifyService.begin();
 
+		final RequestScope requestScope = new RequestScope();
+
 		final AbstractModule basicTestModule = new AbstractModule() {
 			@Override
 			protected void configure() {
 				this.bindScope(RequestScoped.class, requestScope);
+				this.bind(RequestScope.class).toInstance(requestScope);
+
 				this.bind(HttpServletRequest.class).to(FakeHttpServletRequest.class);
 				this.bind(HttpServletResponse.class).to(FakeHttpServletResponse.class);
 			}
 		};
-		injector = Guice.createInjector(Modules.override(basicTestModule).with(module()));
 
+		final Injector injector = Guice.createInjector(Modules.override(basicTestModule).with(module()));
 		injector.injectMembers(this);
-		injector.injectMembers(gae);
 	}
 
 	/** */
@@ -74,30 +75,17 @@ abstract public class AbstractTest {
 	 * Get from the current injector
 	 */
 	public <T> T inst(Class<T> type) {
-		return injector.getInstance(type);
+		return ctx.inst(type);
 	}
 
 	/** Execute within the context of a request */
 	public <T> T req(final Callable<T> callable) throws Exception {
-		requestScope.enter();
-
-		try {
-			ofy().flush();
-			ofy().clear();
-			return callable.call();
-		} finally {
-			ofy().flush();
-			ofy().clear();
-			requestScope.exit();
-		}
+		return ctx.req(callable);
 	}
 
 	/** Execute within the context of a request */
 	public void req(final Runnable runnable) throws Exception {
-		req(() -> {
-			runnable.run();
-			return null;
-		});
+		ctx.req(runnable);
 	}
 
 }
