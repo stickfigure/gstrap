@@ -19,7 +19,8 @@ public class ShortKeyDeserializer extends StdDeserializer<Key> {
 	private final KeyStringer keyStringer;
 
 	/**
-	 * @param keyStringer */
+	 * @param keyStringer
+	 */
 	public ShortKeyDeserializer(final KeyStringer keyStringer) {
 		super(Key.class);
 		this.keyStringer = keyStringer;
@@ -29,6 +30,6 @@ public class ShortKeyDeserializer extends StdDeserializer<Key> {
 	@Override
 	public Key deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
 		String text = jp.getText();
-		return Key.create(keyStringer.keyify(text));
+		return keyStringer.keyify(text);
 	}
 }

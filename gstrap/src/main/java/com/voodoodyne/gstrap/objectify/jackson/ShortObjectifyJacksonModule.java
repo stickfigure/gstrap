@@ -29,9 +29,9 @@ public class ShortObjectifyJacksonModule extends SimpleModule {
 		this.addDeserializer(Ref.class, new ShortRefDeserializer(keyStringer));
 
 		// Native datastore Key
-		this.addSerializer(com.google.appengine.api.datastore.Key.class, new ShortRawKeySerializer(keyStringer));
-		this.addKeySerializer(com.google.appengine.api.datastore.Key.class, new ShortRawKeyKeySerializer(keyStringer));
-		this.addDeserializer(com.google.appengine.api.datastore.Key.class, new ShortRawKeyDeserializer(keyStringer));
+		this.addSerializer(com.google.appengine.api.datastore.Key.class, new ShortRawKeySerializer(keyStringer.getRaw()));
+		this.addKeySerializer(com.google.appengine.api.datastore.Key.class, new ShortRawKeyKeySerializer(keyStringer.getRaw()));
+		this.addDeserializer(com.google.appengine.api.datastore.Key.class, new ShortRawKeyDeserializer(keyStringer.getRaw()));
 	}
 
 }

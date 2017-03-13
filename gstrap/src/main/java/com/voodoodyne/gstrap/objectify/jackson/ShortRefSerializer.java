@@ -28,7 +28,7 @@ public class ShortRefSerializer extends JsonSerializer<Ref> {
 			// Tatu says that this is better:
 			provider.defaultSerializeValue(value.getValue(), jgen);
 		} else {
-			jgen.writeString(keyStringer.stringify(value.key().getRaw()));
+			jgen.writeString(keyStringer.stringify(value.key()));
 		}
 	}
 }

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.google.appengine.api.datastore.Key;
-import com.voodoodyne.gstrap.objectify.KeyStringer;
+import com.voodoodyne.gstrap.objectify.RawKeyStringer;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class ShortRawKeySerializer extends JsonSerializer<Key> {
 
-	private final KeyStringer keyStringer;
+	private final RawKeyStringer keyStringer;
 
 	@Override
 	public void serialize(Key value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {

@@ -21,6 +21,6 @@ public class ShortRefKeySerializer extends JsonSerializer<Ref> {
 
 	@Override
 	public void serialize(Ref value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
-		jgen.writeFieldName(keyStringer.stringify(value.key().getRaw()));
+		jgen.writeFieldName(keyStringer.stringify(value.key()));
 	}
 }

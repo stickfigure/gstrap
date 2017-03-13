@@ -2,6 +2,7 @@ package com.voodoodyne.gstrap.objectify;
 
 import com.googlecode.objectify.Key;
 import com.voodoodyne.gstrap.objectify.KeyPartStringerImpl.Prefix;
+import lombok.Getter;
 
 /**
  * <p>Wraps the RawKeyStringer to provide objectify generic {@code Key<?>}s</p>
@@ -10,6 +11,7 @@ import com.voodoodyne.gstrap.objectify.KeyPartStringerImpl.Prefix;
  */
 public class KeyStringer {
 
+	@Getter
 	private final RawKeyStringer raw;
 
 	public KeyStringer(final Prefix... pairs) {

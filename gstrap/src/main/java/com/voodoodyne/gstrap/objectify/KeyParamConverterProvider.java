@@ -33,7 +33,7 @@ public class KeyParamConverterProvider implements ParamConverterProvider {
 
 				@Override
 				public String toString(final T t) {
-					return keyStringer.stringify(((Key<?>)t).getRaw());
+					return keyStringer.stringify(((Key<?>)t));
 				}
 			};
 		}

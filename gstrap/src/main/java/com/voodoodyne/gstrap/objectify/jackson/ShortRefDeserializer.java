@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 import com.voodoodyne.gstrap.objectify.KeyStringer;
 
@@ -23,7 +22,8 @@ public class ShortRefDeserializer extends StdDeserializer<Ref> {
 	private final KeyStringer keyStringer;
 
 	/**
-	 * @param keyStringer */
+	 * @param keyStringer
+	 */
 	public ShortRefDeserializer(final KeyStringer keyStringer) {
 		super(Ref.class);
 		this.keyStringer = keyStringer;
@@ -37,6 +37,6 @@ public class ShortRefDeserializer extends StdDeserializer<Ref> {
 			throw new IllegalStateException("Cannot yet deserialize Refs that were serialized to a full entity object (as opposed to just string key representation)");
 
 		String text = jp.getText();
-		return Ref.create(Key.create(keyStringer.keyify(text)));
+		return Ref.create(keyStringer.keyify(text));
 	}
 }

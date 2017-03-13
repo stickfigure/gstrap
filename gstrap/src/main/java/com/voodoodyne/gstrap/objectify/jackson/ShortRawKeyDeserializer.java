@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.google.appengine.api.datastore.Key;
-import com.voodoodyne.gstrap.objectify.KeyStringer;
+import com.voodoodyne.gstrap.objectify.RawKeyStringer;
 
 import java.io.IOException;
 
@@ -15,10 +15,10 @@ import java.io.IOException;
 public class ShortRawKeyDeserializer extends StdDeserializer<Key> {
 	private static final long serialVersionUID = 1L;
 
-	private final KeyStringer keyStringer;
+	private final RawKeyStringer keyStringer;
 
 	/** */
-	public ShortRawKeyDeserializer(final KeyStringer keyStringer) {
+	public ShortRawKeyDeserializer(final RawKeyStringer keyStringer) {
 		super(Key.class);
 		this.keyStringer = keyStringer;
 	}
