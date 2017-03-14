@@ -15,13 +15,12 @@
 	</modules>
 
 	<properties>
-		<gae.version>1.9.49</gae.version>
+		<gae.version>1.9.50</gae.version>
 		<junit.jupiter.version>5.0.0-M3</junit.jupiter.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<!-- We use retrolambda -->
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 	</properties>
@@ -91,19 +90,19 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>net.orfjackal.retrolambda</groupId>
-				<artifactId>retrolambda-maven-plugin</artifactId>
-				<version>2.3.0</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>process-main</goal>
-							<goal>process-test</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+			<!--<plugin>-->
+				<!--<groupId>net.orfjackal.retrolambda</groupId>-->
+				<!--<artifactId>retrolambda-maven-plugin</artifactId>-->
+				<!--<version>2.3.0</version>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<goals>-->
+							<!--<goal>process-main</goal>-->
+							<!--<goal>process-test</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
+			<!--</plugin>-->
 			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
