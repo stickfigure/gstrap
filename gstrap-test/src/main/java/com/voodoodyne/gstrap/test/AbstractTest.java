@@ -88,4 +88,8 @@ abstract public class AbstractTest {
 		ctx.req(runnable);
 	}
 
+	/** Run everything on the queue. Also any tasks that the tasks add. Stops when totally empty. */
+	public void awaitTasks() {
+		gae.awaitTasks(ctx);
+	}
 }

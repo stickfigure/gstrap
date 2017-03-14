@@ -1,13 +1,20 @@
 package com.voodoodyne.gstrap.test;
 
+import com.google.appengine.api.taskqueue.dev.LocalTaskQueue;
+import com.google.appengine.api.taskqueue.dev.QueueStateInfo;
+import com.google.appengine.api.taskqueue.dev.QueueStateInfo.TaskStateInfo;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.appengine.tools.development.testing.LocalTaskQueueTestConfig;
+import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.TestInfo;
 
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -40,5 +47,29 @@ public class GAEHelper {
 	/** */
 	public void tearDown() {
 		helper.tearDown();
+	}
+
+	/**
+	 * Use internal APIs in the local task queue to process all tasks... and keep processing them
+	 * becuse tasks can enqueue other tasks. Only stop when there is nothing left.
+	 */
+	@SneakyThrows
+	public void awaitTasks(final TestContext ctx) {
+		boolean stop = false;
+		while (!stop) {
+			stop = true;
+
+			final LocalTaskQueue ltq = LocalTaskQueueTestConfig.getLocalTaskQueue();
+
+			for (final Map.Entry<String, QueueStateInfo> queueEntry: ltq.getQueueStateInfo().entrySet()) {
+				// copy just in case this changes underneath us
+				List<TaskStateInfo> tasks = Lists.newArrayList(queueEntry.getValue().getTaskInfo());
+
+				for (final TaskStateInfo task: tasks) {
+					ctx.req(() -> ltq.runTask(queueEntry.getKey(), task.getTaskName()));
+					stop = false;
+				}
+			}
+		}
 	}
 }

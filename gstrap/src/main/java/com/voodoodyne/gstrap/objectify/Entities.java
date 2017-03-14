@@ -31,7 +31,7 @@ public class Entities {
 	 */
 	public static <T> boolean saveIfDifferent(final HasKey<?> entity, final T firstValue, final T secondValue, final Runnable runIfDifferent) {
 		final boolean different = saveIfDifferent(entity, firstValue, secondValue);
-		
+
 		if (different)
 			runIfDifferent.run();
 
