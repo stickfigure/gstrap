@@ -28,7 +28,7 @@ public class KeyParamConverterProvider implements ParamConverterProvider {
 			return new ParamConverter<T>() {
 				@Override
 				public T fromString(final String s) {
-					return aClass.cast(Key.create(keyStringer.keyify(s)));
+					return aClass.cast(keyStringer.keyify(s));
 				}
 
 				@Override
