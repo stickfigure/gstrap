@@ -16,12 +16,24 @@ public class Entities {
 	 *
 	 * @return true if the two values differ
 	 */
-	public static <T> boolean saveIfDifferent(final Object entity, final T firstValue, final T secondValue) {
+	public static <T> boolean saveIfDifferent(final HasKey<?> entity, final T firstValue, final T secondValue) {
 		Transactions.require();
 
 		final boolean different = !Objects.equals(firstValue, secondValue);
 		if (different)
 			ofy().defer().save().entity(entity);
+
+		return different;
+	}
+
+	/**
+	 * In addition to the basic logic, executes the closure if different
+	 */
+	public static <T> boolean saveIfDifferent(final HasKey<?> entity, final T firstValue, final T secondValue, final Runnable runIfDifferent) {
+		final boolean different = saveIfDifferent(entity, firstValue, secondValue);
+		
+		if (different)
+			runIfDifferent.run();
 
 		return different;
 	}
