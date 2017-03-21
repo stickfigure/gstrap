@@ -48,4 +48,13 @@ public class Safe
 	public static <K, V> V get(final Map<K, V> map, K key) {
 		return map.get(key);
 	}
+
+	/**
+	 * Map.get() but with type safety.
+	 * @return the defaultValue if the result of get() is null
+	 */
+	public static <K, V> V get(final Map<K, V> map, K key, V defaultValue) {
+		final V value = get(map, key);
+		return value == null ? defaultValue : value;
+	}
 }
