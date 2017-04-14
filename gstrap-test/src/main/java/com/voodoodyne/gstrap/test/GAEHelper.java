@@ -84,9 +84,11 @@ public class GAEHelper {
 	/**
 	 * Use internal APIs in the local task queue to process all tasks... and keep processing them
 	 * becuse tasks can enqueue other tasks. Only stop when there is nothing left.
+	 *
+	 * This relies on the thread local stuff set up by the helper.
 	 */
 	@SneakyThrows
-	public void awaitTasks(final TestContext ctx) {
+	public static void awaitTasks(final Requestor requestor) {
 		boolean stop = false;
 		while (!stop) {
 			stop = true;
@@ -105,7 +107,7 @@ public class GAEHelper {
 					if (++counter.count > MAX_TASK_RETRIES)
 						throw new RuntimeException("Too many task retries for " + task);
 
-					ctx.req(() -> ltq.runTask(queueEntry.getKey(), task.getTaskName()));
+					requestor.req(() -> ltq.runTask(queueEntry.getKey(), task.getTaskName()));
 					stop = false;
 				}
 			}
