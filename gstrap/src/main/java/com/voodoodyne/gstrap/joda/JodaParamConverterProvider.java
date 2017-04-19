@@ -1,4 +1,4 @@
-package com.voodoodyne.gstrap.rest;
+package com.voodoodyne.gstrap.joda;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;

@@ -45,7 +45,6 @@ public class RestModule extends ServletModule {
 		bindInterceptor(Matchers.any(), jaxrsMethods, new LogCallInterceptor());
 
 		bind(ObjectMapperContextResolver.class);
-		bind(JodaParamConverterProvider.class);
 
 		filter(prefix + "/*").through(GuiceResteasyFilterDispatcher.class);
 	}

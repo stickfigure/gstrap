@@ -4,7 +4,7 @@ import com.google.appengine.api.urlfetch.HTTPRequest;
 import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
-import com.googlecode.objectify.util.FutureNow;
+import com.voodoodyne.gstrap.util.FakeFuture;
 
 import javax.inject.Singleton;
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class BaseURLFetchService implements URLFetchService {
 	@Override
 	final public Future<HTTPResponse> fetchAsync(final HTTPRequest httpRequest) {
 		try {
-			return new FutureNow<>(fetch(httpRequest));
+			return new FakeFuture<>(fetch(httpRequest));
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}
