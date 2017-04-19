@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.StringJoiner;
 
 /**
  */
@@ -60,4 +61,14 @@ public class Strings2 {
 		return fragments;
 	}
 
+	/** Why oh why isn't the new stringjoiner API more functional? */
+	public static String join(final String[] strings, final String delimiter) {
+		final StringJoiner joiner = new StringJoiner(delimiter);
+
+		for (final String string : strings) {
+			joiner.add(string);
+		}
+
+		return joiner.toString();
+	}
 }
