@@ -1,5 +1,6 @@
 package com.voodoodyne.gstrap.rest;
 
+import com.voodoodyne.gstrap.lang.Types;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jboss.resteasy.spi.Failure;
@@ -11,6 +12,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
+import java.util.List;
 
 /**
  * Translates exceptions in our application into a nice format understandable by programs and humans alike.
@@ -33,6 +35,10 @@ public class ThrowableMapper implements ExceptionMapper<Throwable> {
 			return t.getClass().getSimpleName();
 		}
 
+		public List<String> getTypes() {
+			return Types.getTypes(t, ClientException.class, RuntimeException.class, Exception.class, Throwable.class);
+		}
+
 		public StackTraceElement[] getStackTrace() {
 			return t.getStackTrace();
 		}
@@ -51,8 +57,10 @@ public class ThrowableMapper implements ExceptionMapper<Throwable> {
 		} else {
 			log.error("Exception hit the top level handler", exception);
 
+			final Status status = (exception instanceof ClientException) ? Status.BAD_REQUEST : Status.INTERNAL_SERVER_ERROR;
+
 			return Response
-					.status(Status.INTERNAL_SERVER_ERROR)
+					.status(status)
 					.type(MediaType.APPLICATION_JSON_TYPE)
 					.entity(new ErrorBody(exception))
 					.build();
