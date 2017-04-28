@@ -22,6 +22,7 @@ abstract public class PrivateAuthFilter extends BasicAuthFilter
 		if (request.getHeader("X-AppEngine-Cron") != null
 				|| request.getHeader("X-AppEngine-QueueName") != null
 				|| request.getServletPath() != null && request.getServletPath().startsWith("/_")	// gae
+				|| request.getServletPath() != null && request.getServletPath().startsWith("/api/_")	// arbitrary internal api
 				|| request.getServletPath() != null && request.getServletPath().startsWith("/img/")) {
 			chain.doFilter(request, response);
 		} else {
