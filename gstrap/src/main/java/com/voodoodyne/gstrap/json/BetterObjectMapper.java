@@ -16,6 +16,17 @@ import java.io.IOException;
  */
 public class BetterObjectMapper extends ObjectMapper {
 	public BetterObjectMapper() {
+		init();
+	}
+
+	/** Copy constructor, will add our behavior if src is not already BOM */
+	public BetterObjectMapper(final ObjectMapper src) {
+		super(src);
+		if (!(src instanceof BetterObjectMapper))
+			init();
+	}
+
+	private void init() {
 		this.registerModule(new GuavaModule());
 		this.registerModule(new ParameterNamesModule());
 		this.registerModule(new Jdk8Module());
