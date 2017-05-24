@@ -15,8 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.UUID;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 /** Better interface to queues */
 @Data
 @Slf4j
@@ -30,9 +28,9 @@ abstract public class QueueHelper {
 	/** @return a new immutable QueueHelper with the countdown */
 	abstract public QueueHelper withCountdownMillis(final long millis);
 
-	/** Determines implicit transaction state from ofy().getTransaction() */
+	/** WITHOUT a transaction */
 	public void add(final DeferredTask payload) {
-		this.add(ofy().getTransaction(), payload);
+		this.add(null, payload);
 	}
 
 	/** */
