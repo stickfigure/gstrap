@@ -60,7 +60,7 @@ public class LogCallInterceptor implements MethodInterceptor
 			logger.debug("Returning {}", result);
 			return result;
 		} catch (Throwable t) {
-			logger.debug("Threw {}", (Object)t);
+			logger.debug("Threw " + t);
 			throw t;
 		}
 	}
