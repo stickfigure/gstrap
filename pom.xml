@@ -16,7 +16,7 @@
 
 	<properties>
 		<gae.version>1.9.50</gae.version>
-		<junit.jupiter.version>5.0.0-M3</junit.jupiter.version>
+		<junit.jupiter.version>5.0.0-M5</junit.jupiter.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

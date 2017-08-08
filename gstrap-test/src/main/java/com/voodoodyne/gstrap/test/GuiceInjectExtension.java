@@ -2,7 +2,7 @@ package com.voodoodyne.gstrap.test;
 
 import com.google.inject.Injector;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
-import org.junit.jupiter.api.extension.TestExtensionContext;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
  * Separate out the actual injection of things from the guice setup so that other extensions do setup
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.extension.TestExtensionContext;
  */
 public class GuiceInjectExtension implements BeforeEachCallback {
 	@Override
-	public void beforeEach(final TestExtensionContext context) throws Exception {
+	public void beforeEach(final ExtensionContext context) throws Exception {
 		final Injector injector = GuiceExtension.getInjector(context);
 		final Object testInstance = context.getTestInstance();
 

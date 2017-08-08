@@ -12,10 +12,6 @@
 
 	<name>GStrap Test</name>
 
-	<properties>
-		<junit.jupiter.version>5.0.0-M3</junit.jupiter.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.voodoodyne.gstrap</groupId>

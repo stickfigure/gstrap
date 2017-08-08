@@ -18,7 +18,6 @@ import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
-import org.junit.jupiter.api.extension.TestExtensionContext;
 
 import javax.inject.Qualifier;
 import javax.servlet.http.HttpServletRequest;
@@ -48,8 +47,8 @@ public class GuiceExtension implements BeforeEachCallback, ParameterResolver {
 	}
 
 	@Override
-	public void beforeEach(final TestExtensionContext context) throws Exception {
-		final GuicyTest testInstance = (GuicyTest)context.getTestInstance();
+	public void beforeEach(final ExtensionContext context) throws Exception {
+		final GuicyTest testInstance = (GuicyTest)context.getTestInstance().get();
 		final Module module = testInstance.module();
 
 		final RequestScope requestScope = new RequestScope();
@@ -73,7 +72,7 @@ public class GuiceExtension implements BeforeEachCallback, ParameterResolver {
 	}
 
 	@Override
-	public boolean supports(final ParameterContext parameterContext, final ExtensionContext extensionContext) throws ParameterResolutionException {
+	public boolean supportsParameter(final ParameterContext parameterContext, final ExtensionContext extensionContext) throws ParameterResolutionException {
 		final Parameter parameter = parameterContext.getParameter();
 		if (getBindingAnnotations(parameter).size() > 1)
 			return false;
@@ -88,7 +87,7 @@ public class GuiceExtension implements BeforeEachCallback, ParameterResolver {
 	}
 
 	@Override
-	public Object resolve(final ParameterContext parameterContext, final ExtensionContext extensionContext) throws ParameterResolutionException {
+	public Object resolveParameter(final ParameterContext parameterContext, final ExtensionContext extensionContext) throws ParameterResolutionException {
 		final Parameter parameter = parameterContext.getParameter();
 		final Key<?> key = getKey(parameter);
 		final Injector injector = getInjector(extensionContext);
