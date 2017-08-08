@@ -10,7 +10,7 @@ public class MockitoExtension implements BeforeEachCallback {
 
 	@Override
 	public void beforeEach(final ExtensionContext context) throws Exception {
-		final Object testInstance = context.getTestInstance();
+		final Object testInstance = context.getTestInstance().get();
 
 		MockitoAnnotations.initMocks(testInstance);
 	}

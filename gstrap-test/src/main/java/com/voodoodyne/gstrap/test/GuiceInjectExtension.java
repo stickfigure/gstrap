@@ -12,7 +12,7 @@ public class GuiceInjectExtension implements BeforeEachCallback {
 	@Override
 	public void beforeEach(final ExtensionContext context) throws Exception {
 		final Injector injector = GuiceExtension.getInjector(context);
-		final Object testInstance = context.getTestInstance();
+		final Object testInstance = context.getTestInstance().get();
 
 		injector.injectMembers(testInstance);
 	}
