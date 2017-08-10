@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>com.voodoodyne.hattery</groupId>
 			<artifactId>hattery</artifactId>
-			<version>0.15</version>
+			<version>0.26</version>
 		</dependency>
 
 		<dependency>

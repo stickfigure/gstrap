@@ -25,11 +25,11 @@ public class GAEServicesModule extends AbstractModule {
 
 	@Provides
 	public HttpRequest hatteryRequest(final ObjectMapper mapper, final URLFetchService fetchService) {
-		return new AppEngineTransport(fetchService) {
+		return new HttpRequest().transport(new AppEngineTransport(fetchService) {
 			@Override
 			protected FetchOptions defaultOptions() {
 				return super.defaultOptions().validateCertificate();
 			}
-		}.request().mapper(mapper);
+		}).mapper(mapper);
 	}
 }
