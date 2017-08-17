@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 
 /**
@@ -70,6 +71,18 @@ public class Memcache<K, V> {
 	 */
 	public Memcache(Class<?> clazzNamespace) {
 		this(clazzNamespace.getSimpleName());
+	}
+
+	/** */
+	public V get(final K key, final Supplier<V> supplier) {
+		final V value = get(key);
+		if (value != null) {
+			return value;
+		} else {
+			final V supplied = supplier.get();
+			put(key, supplied);
+			return supplied;
+		}
 	}
 
 	/** */
