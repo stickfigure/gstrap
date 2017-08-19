@@ -2,7 +2,10 @@ package com.voodoodyne.gstrap.taskqueue;
 
 import com.google.appengine.api.taskqueue.QueueFactory;
 
-import java.util.Iterator;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Utilitiy method for dealing with queues
@@ -21,14 +24,11 @@ public class Queues
 	}
 
 	/**
-	 * Add the tasks to their default queue. They should all be the same type, so they all go to
-	 * the default queue of the first task.
+	 * Add the tasks to their default queues in the most optimum way possible.
 	 */
-	public static <T extends GuicyDeferredTask> void add(final Iterable<T> tasks) {
-		final Iterator<T> iterator = tasks.iterator();
-		if (iterator.hasNext()) {
-			final T first = iterator.next();
-			first.defaultQueue().add(tasks);
-		}
+	public static <T extends GuicyDeferredTask> void add(final Collection<T> tasks) {
+		final Map<QueueHelper, List<T>> byQueue = tasks.stream().collect(Collectors.groupingBy(GuicyDeferredTask::defaultQueue));
+
+		byQueue.forEach(QueueHelper::add);
 	}
 }

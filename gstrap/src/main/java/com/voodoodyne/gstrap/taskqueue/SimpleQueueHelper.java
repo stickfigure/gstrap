@@ -1,15 +1,14 @@
 package com.voodoodyne.gstrap.taskqueue;
 
+import com.google.api.client.util.Objects;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /** Just a single named queue */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@ToString(callSuper = false)
+@EqualsAndHashCode(callSuper = true, doNotUseGetters = true)	// we can trust Queue equals and hashcode
 public class SimpleQueueHelper extends QueueHelper {
 	private final Queue queue;
 
@@ -35,5 +34,13 @@ public class SimpleQueueHelper extends QueueHelper {
 	@Override
 	public Queue queue() {
 		return queue;
+	}
+
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+				.add("super", super.toString())
+				.add("queue", queue.getQueueName())
+				.toString();
 	}
 }

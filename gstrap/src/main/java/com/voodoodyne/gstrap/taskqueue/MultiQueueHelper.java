@@ -1,32 +1,37 @@
 package com.voodoodyne.gstrap.taskqueue;
 
+import com.google.api.client.util.Objects;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /** Tries to distribute tasks among a group of queues */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@ToString(callSuper = false)
+@EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
 public class MultiQueueHelper extends QueueHelper {
 	private static final Random RANDOM = new Random();
 
-	private final Queue[] queues;
+	private final List<Queue> queues;
 
-	public MultiQueueHelper(Queue... queues) {
-		super(null);
-		this.queues = queues;
+	public MultiQueueHelper(final Queue... queues) {
+		this(Arrays.asList(queues));
 	}
 
-	public MultiQueueHelper(String... names) {
+	public MultiQueueHelper(final List<Queue> queues) {
+		this(null, queues);
+	}
+
+	public MultiQueueHelper(final String... names) {
 		this(namesToQueues(names));
 	}
 
-	private MultiQueueHelper(final Long countdownMillis, final Queue[] queues) {
+	private MultiQueueHelper(final Long countdownMillis, final List<Queue> queues) {
 		super(countdownMillis);
 		this.queues = queues;
 	}
@@ -38,7 +43,7 @@ public class MultiQueueHelper extends QueueHelper {
 
 	@Override
 	public Queue queue() {
-		return queues[RANDOM.nextInt(queues.length)];
+		return queues.get(RANDOM.nextInt(queues.size()));
 	}
 
 	private static Queue[] namesToQueues(final String[] names) {
@@ -47,5 +52,13 @@ public class MultiQueueHelper extends QueueHelper {
 			queues[i] = QueueFactory.getQueue(names[i]);
 
 		return queues;
+	}
+
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+				.add("super", super.toString())
+				.add("queues", queues.stream().map(Queue::getQueueName).collect(Collectors.joining(",", "[", "]")))
+				.toString();
 	}
 }
