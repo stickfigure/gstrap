@@ -15,6 +15,7 @@
 	</modules>
 
 	<properties>
+		<guice.version>4.1.0</guice.version>
 		<junit.jupiter.version>5.0.0</junit.jupiter.version>
 		<junit.platform.version>1.0.0</junit.platform.version>
 

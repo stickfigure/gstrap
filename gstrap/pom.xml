@@ -13,7 +13,6 @@
 	<name>GStrap</name>
 
 	<properties>
-		<guice.version>4.1.0</guice.version>
 		<jackson.version>2.9.1</jackson.version>
 		<resteasy.version>3.1.4.Final</resteasy.version>
 	</properties>
