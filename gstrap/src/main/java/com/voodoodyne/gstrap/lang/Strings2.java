@@ -35,6 +35,13 @@ public class Strings2 {
 			return value;
 	}
 
+	/**
+	 * Trims input, producing an empty string if null
+	 */
+	public static String trimToEmpty(final String value) {
+		return (value == null) ? "" : value.trim();
+	}
+
 	/** Chop to N chars */
 	public static String chopTo(String str, int numberOfChars) {
 		if (str.length() > numberOfChars)
