@@ -39,10 +39,6 @@ public class ThrowableMapper implements ExceptionMapper<Throwable> {
 			return Types.getTypes(t, ClientException.class, RuntimeException.class, Exception.class, Throwable.class);
 		}
 
-		public StackTraceElement[] getStackTrace() {
-			return t.getStackTrace();
-		}
-
 		public ErrorBody getCause() {
 			return t.getCause() == null ? null : new ErrorBody(t.getCause());
 		}
