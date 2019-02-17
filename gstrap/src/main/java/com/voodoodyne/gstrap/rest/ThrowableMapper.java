@@ -53,7 +53,9 @@ public class ThrowableMapper implements ExceptionMapper<Throwable> {
 		} else {
 			log.error("Exception hit the top level handler", exception);
 
-			final Status status = (exception instanceof ClientException) ? Status.BAD_REQUEST : Status.INTERNAL_SERVER_ERROR;
+			final Status status = (exception instanceof ClientException)
+					? ((ClientException)exception).getStatus()
+					: Status.INTERNAL_SERVER_ERROR;
 
 			return Response
 					.status(status)
