@@ -3,7 +3,6 @@ package com.voodoodyne.gstrap.test;
 import lombok.Data;
 
 import javax.servlet.Filter;
-import javax.xml.ws.Holder;
 import java.util.concurrent.Callable;
 
 /**
@@ -11,6 +10,11 @@ import java.util.concurrent.Callable;
  */
 @Data
 public class ServletFilterAdapter implements RequestFilter {
+
+	/** */
+	private static class Holder<T> {
+		public T value;
+	}
 
 	/** */
 	private final Filter filter;
