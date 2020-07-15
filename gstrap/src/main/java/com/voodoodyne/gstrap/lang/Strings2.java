@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.StringJoiner;
 
@@ -16,7 +17,7 @@ public class Strings2 {
 	/**
 	 * String must have some non-whitespace chars
 	 */
-	public static boolean notEmpty(String str) {
+	public static boolean notEmpty(final String str) {
 		return str != null && str.trim().length() > 0;
 	}
 
@@ -36,6 +37,13 @@ public class Strings2 {
 	}
 
 	/**
+	 * Trims to null and provides that as a nullable Optional.
+	 */
+	public static Optional<String> trimToOptional(final String value) {
+		return Optional.ofNullable(trimToNull(value));
+	}
+
+	/**
 	 * Trims input, producing an empty string if null
 	 */
 	public static String trimToEmpty(final String value) {
@@ -43,7 +51,7 @@ public class Strings2 {
 	}
 
 	/** Chop to N chars */
-	public static String chopTo(String str, int numberOfChars) {
+	public static String chopTo(final String str, final int numberOfChars) {
 		if (str.length() > numberOfChars)
 			return str.substring(0, numberOfChars);
 		else
