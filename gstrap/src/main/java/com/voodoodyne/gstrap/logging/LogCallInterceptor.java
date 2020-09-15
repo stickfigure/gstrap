@@ -60,7 +60,7 @@ public class LogCallInterceptor implements MethodInterceptor
 		try {
 			final Object result = inv.proceed();
 
-			if (logCallAnnotation.result())
+			if (logCallAnnotation == null || logCallAnnotation.result())
 				logger.debug("Returning {}", result);
 
 			return result;
