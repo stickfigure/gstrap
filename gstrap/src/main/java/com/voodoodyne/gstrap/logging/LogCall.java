@@ -15,4 +15,8 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 public @interface LogCall
 {
+	/**
+	 * If false, skip logging the result. Default is true.
+	 */
+	boolean result() default true;
 }

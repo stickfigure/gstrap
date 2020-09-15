@@ -23,6 +23,8 @@ public class LogCallInterceptor implements MethodInterceptor
 	@Override
 	public Object invoke(MethodInvocation inv) throws Throwable
 	{
+		final LogCall logCallAnnotation = inv.getMethod().getAnnotation(LogCall.class);
+
 		final Object obj = inv.getThis();
 
 		// The actual class will be the guice enhanced one, so get super
@@ -57,7 +59,10 @@ public class LogCallInterceptor implements MethodInterceptor
 
 		try {
 			final Object result = inv.proceed();
-			logger.debug("Returning {}", result);
+
+			if (logCallAnnotation.result())
+				logger.debug("Returning {}", result);
+
 			return result;
 		} catch (Throwable t) {
 			logger.debug("Threw " + t);
