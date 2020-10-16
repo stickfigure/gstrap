@@ -8,7 +8,7 @@ import java.util.concurrent.Callable;
 /**
  * Sets up and tears down state as if a request was made to a web container.
  */
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
+@RequiredArgsConstructor(onConstructor_ = @Inject)
 public class ScopeRequestFilter implements RequestFilter {
 
 	/** */
