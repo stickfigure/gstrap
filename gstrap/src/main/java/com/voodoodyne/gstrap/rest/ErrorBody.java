@@ -5,12 +5,21 @@ import com.voodoodyne.gstrap.lang.Types;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * JSON structure of an error body from the ThrowableMapper
  */
 @RequiredArgsConstructor
 public class ErrorBody {
+	private static final String stripExceptionSuffix(final String className) {
+		if (className.endsWith("Exception")) {
+			return className.substring(0, className.length() - "Exception".length());
+		} else {
+			return className;
+		}
+	}
+
 	private final Throwable t;
 
 	public String getMessage() {
@@ -18,11 +27,13 @@ public class ErrorBody {
 	}
 
 	public String getType() {
-		return t.getClass().getSimpleName();
+		return stripExceptionSuffix(t.getClass().getSimpleName());
 	}
 
 	public List<String> getTypes() {
-		return Types.getTypes(t, ClientException.class, RuntimeException.class, Exception.class, Throwable.class);
+		return Types.getTypes(t, ClientException.class, RuntimeException.class, Exception.class, Throwable.class)
+				.stream()
+				.map(ErrorBody::stripExceptionSuffix).collect(Collectors.toList());
 	}
 
 	public ErrorBody getCause() {
