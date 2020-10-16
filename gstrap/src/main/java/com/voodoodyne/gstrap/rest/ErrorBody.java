@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  */
 @RequiredArgsConstructor
 public class ErrorBody {
-	private static final String stripExceptionSuffix(final String className) {
+	private static String stripExceptionSuffix(final String className) {
 		if (className.endsWith("Exception")) {
 			return className.substring(0, className.length() - "Exception".length());
 		} else {
