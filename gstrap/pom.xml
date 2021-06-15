@@ -14,7 +14,7 @@
 
 	<properties>
 		<jackson.version>2.11.3</jackson.version>
-		<resteasy.version>4.4.2.Final</resteasy.version>
+		<resteasy.version>4.6.0.Final</resteasy.version>
 	</properties>
 
 	<dependencies>
