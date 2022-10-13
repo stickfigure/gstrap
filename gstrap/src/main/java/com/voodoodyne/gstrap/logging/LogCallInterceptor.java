@@ -21,9 +21,12 @@ public class LogCallInterceptor implements MethodInterceptor
 	 * @see org.aopalliance.intercept.MethodInterceptor#invoke(org.aopalliance.intercept.MethodInvocation)
 	 */
 	@Override
-	public Object invoke(MethodInvocation inv) throws Throwable
+	public Object invoke(final MethodInvocation inv) throws Throwable
 	{
 		final LogCall logCallAnnotation = inv.getMethod().getAnnotation(LogCall.class);
+		if (logCallAnnotation != null && logCallAnnotation.disable()) {
+			return inv.proceed();
+		}
 
 		final Object obj = inv.getThis();
 
