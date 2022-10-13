@@ -11,6 +11,7 @@ import java.security.GeneralSecurityException;
 /**
  * Verifies Google SignIn identity tokens
  * @link https://github.com/googleplus/gplus-verifytoken-java
+ * @link https://developers.google.com/identity/gsi/web/guides/verify-google-id-token
  */
 @RequiredArgsConstructor
 public class GoogleSignInVerifier {
@@ -19,7 +20,7 @@ public class GoogleSignInVerifier {
 	private final GoogleIdTokenVerifier verifier;
 	private final JsonFactory jsonFactory;
 
-	public GoogleIdToken.Payload verify(String tokenString) throws IOException, GeneralSecurityException {
+	public GoogleIdToken.Payload verify(final String tokenString) throws IOException, GeneralSecurityException {
 		GoogleIdToken token = GoogleIdToken.parse(jsonFactory, tokenString);
 
 		if (!verifier.verify(token))
