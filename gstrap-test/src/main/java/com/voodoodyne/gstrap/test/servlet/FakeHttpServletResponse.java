@@ -17,11 +17,9 @@ import java.util.Map;
  * All methods will throw UnsupportedOperationException.
  */
 @RequestScoped
-public class FakeHttpServletResponse extends HttpServletResponseWrapper
-{
+public class FakeHttpServletResponse extends HttpServletResponseWrapper {
 	/** Create a stub interface via dynamic proxy that does nothing */
-	private static HttpServletResponse makeStub()
-	{
+	private static HttpServletResponse makeStub() {
 		return (HttpServletResponse)Proxy.newProxyInstance(
 				Thread.currentThread().getContextClassLoader(),
 				new Class<?>[] { HttpServletResponse.class },
@@ -30,10 +28,9 @@ public class FakeHttpServletResponse extends HttpServletResponseWrapper
 				});
 	}
 	
-	Map<String, Object> attrs = new HashMap<String, Object>();
+	final Map<String, Object> attrs = new HashMap<>();
 	
-	public FakeHttpServletResponse()
-	{
+	public FakeHttpServletResponse() {
 		// Can't actually pass null here
 		super(makeStub());
 	}

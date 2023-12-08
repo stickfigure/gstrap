@@ -20,8 +20,8 @@ import java.util.Map;
  * All methods except attribute-related methods will either do nothing or return null.
  */
 @RequestScoped
-public class FakeHttpServletRequest extends HttpServletRequestWrapper
-{
+public class FakeHttpServletRequest extends HttpServletRequestWrapper {
+
 	/** Create a stub interface via dynamic proxy that does nothing */
 	private static HttpServletRequest makeStub() {
 		return (HttpServletRequest)Proxy.newProxyInstance(
@@ -30,7 +30,7 @@ public class FakeHttpServletRequest extends HttpServletRequestWrapper
 				(proxy, method, args) -> null);
 	}
 
-	Map<String, Object> attrs = new HashMap<>();
+	final Map<String, Object> attrs = new HashMap<>();
 
 	public FakeHttpServletRequest() {
 		// Can't actually pass null here
@@ -58,12 +58,12 @@ public class FakeHttpServletRequest extends HttpServletRequestWrapper
 	}
 
 	@Override
-	public Enumeration<?> getHeaderNames() {
+	public Enumeration<String> getHeaderNames() {
 		return Collections.emptyEnumeration();
 	}
 
 	@Override
-	public Map<?, ?> getParameterMap() {
+	public Map<String, String[]> getParameterMap() {
 		return Collections.emptyMap();
 	}
 }
